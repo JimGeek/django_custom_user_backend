@@ -1,0 +1,16 @@
+{%  extends "base.html" %}
+
+{% block content %}
+
+    {% if form.errors %}
+        <p class="error">Sorry thats not a valid uid</p>
+    {% endif %}
+
+    <form action="/accounts/auth/" method="post">{% csrf_token %}
+        <label for="uid">UID</label>
+        <input type="text" name="uid" value="" id="uid">
+
+        <input type="submit" value="login"/>
+    </form>
+
+{% endblock %}
