@@ -1,15 +1,7 @@
-<html>
-<head>
-	<title>Beautiful Blog</title>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-</head>
-<body>
-	<h1>Hello Bloggers</h1>
-	<strong>{{ message }}</strong><br />
-    <button id="hey">Click Me!</button>
-    <div id="fb-root"></div>
-    <script>
-    window.fbAsyncInit = function() {
+/**
+ * Created by Jimit on 27/2/14.
+ */
+   window.fbAsyncInit = function() {
         FB.init({
             appId      : '1441600719392672',
             status     : true, // check login status
@@ -57,62 +49,13 @@
         ref.parentNode.insertBefore(js, ref);
     }(document));
 
-     function getCookie(name) {
-                    var cookieValue = null;
-                    if (document.cookie && document.cookie != '') {
-                        var cookies = document.cookie.split(';');
-                        for (var i = 0; i < cookies.length; i++) {
-                            var cookie = jQuery.trim(cookies[i]);
-                            // Does this cookie string begin with the name we want?
-                            if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                            break;
-            }
-        }
-    }
-    return cookieValue;
-    }
-
-    function csrfSafeMethod(method) {
-        // these HTTP methods do not require CSRF protection
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
     // Here we run a very simple test of the Graph API after login is successful.
     // This testAPI() function is only called in those cases.
     function testAPI() {
         console.log('Welcome!  Fetching your information.... ');
         FB.api('/me', function(response) {
-
-        var csrftoken = getCookie('csrftoken');
-
-    $.ajaxSetup({
-        crossDomain: false, // obviates need for sameOrigin test
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type)) {
-                xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            }
-        }
-    });
-               $.ajax({
-                   type: "POST",
-                   url : "http://localhost:8000/send/",
-                   data: {
-                       'email': response.email,
-                       'uid' : response.id,
-                       'first_name' : response.first_name,
-                       'last_name' : response.last_name
-                   },
-                   success : function(data){
-                       alert("Success");
-                   },
-                   error: function(){
-                       alert("Error");
-                   }
-               });
-           });
+            console.log(response);
+            console.log('Good to see you, ' + response.name + '.');
+            console.log('Good to see you, ' + response.email + '.');
+        });
     }
-</script>
-<fb:login-button data-scope="email" show-faces="true" width="200" max-rows="1"></fb:login-button>
-
-</body>
-</html>
