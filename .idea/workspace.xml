@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="522c32a8-ab55-4bd3-80d1-8acfcd2404db" name="Default" comment="Done the following things&#10;- User login through UID&#10;- Admin login through UID and Password&#10;- Ajax post with profile info">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mydb.db" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mydb.db" afterPath="$PROJECT_DIR$/mydb.db" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/index.html" afterPath="$PROJECT_DIR$/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/custom_user_auth/views.py" afterPath="$PROJECT_DIR$/custom_user_auth/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="custom_user.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,7 +104,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="54" column="67" selection-start="2912" selection-end="2912" vertical-scroll-proportion="0.2425876" vertical-offset="828" max-vertical-offset="2091">
+            <state line="196" column="9" selection-start="8412" selection-end="8412" vertical-scroll-proportion="8.9811325" vertical-offset="0" max-vertical-offset="3740">
               <folding />
             </state>
           </provider>
@@ -536,7 +535,7 @@
     <layout>
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42396313" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32872504" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32733223" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -702,7 +701,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="54" column="67" selection-start="2912" selection-end="2912" vertical-scroll-proportion="0.2425876" vertical-offset="828" max-vertical-offset="2091">
+        <state line="196" column="9" selection-start="8412" selection-end="8412" vertical-scroll-proportion="8.9811325" vertical-offset="0" max-vertical-offset="3740">
           <folding />
         </state>
       </provider>

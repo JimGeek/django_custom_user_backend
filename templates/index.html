@@ -2,6 +2,7 @@
 <head>
 	<title>Beautiful Blog</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://apis.google.com/js/client:plusone.js" type="text/javascript"></script>
 </head>
 <body>
 	<h1>Hello Bloggers</h1>
@@ -111,8 +112,104 @@
                });
            });
     }
+
+    //Google+ login functions
+         var profile, email, familyname;
+
+        /*
+         * Triggered when the user accepts the sign in, cancels, or closes the
+         * authorization dialog.
+         */
+        function loginFinishedCallback(authResult) {
+            if (authResult) {
+                if (authResult['error'] == undefined){
+                    gapi.client.load('plus','v1', loadProfile);  // Trigger request to get the email address.
+                } else {
+                    console.log('An error occurred');
+                }
+            } else {
+                console.log('Empty authResult');  // Something went wrong
+            }
+        }
+
+        /**
+         * Uses the JavaScript API to request the user's profile, which includes
+         * their basic information. When the plus.profile.emails.read scope is
+         * requested, the response will also include the user's primary email address
+         * and any other email addresses that the user made public.
+         */
+        function loadProfile(){
+            var request = gapi.client.plus.people.get( {'userId' : 'me'} );
+            request.execute(loadProfileCallback);
+        }
+
+        /**
+         * Callback for the asynchronous request to the people.get method. The profile
+         * and email are set to global variables. Triggers the user's basic profile
+         * to display when called.
+         */
+        function loadProfileCallback(obj) {
+            var first_name, last_name, uid;
+            profile = obj;
+            console.log(obj);
+            // Filter the emails object to find the user's primary account, which might
+            // not always be the first in the array. The filter() method supports IE9+.
+            email = obj['emails'].filter(function(v) {
+                return v.type === 'account'; // Filter out the primary email
+            })[0].value; // get the email from the filtered results, should always be defined.
+            familyname = obj['displayName'];
+            first_name = obj['name']['givenName'];
+            last_name = obj['name']['familyName'];
+            uid = obj['id'];
+            console.log(email);
+            console.log(familyname);
+            console.log(first_name);
+            console.log(last_name);
+            console.log(uid);
+
+            var csrftoken = getCookie('csrftoken');
+
+        $.ajaxSetup({
+            crossDomain: false, // obviates need for sameOrigin test
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url : "http://localhost:8000/send/",
+            data: {
+                   'email': email,
+                   'uid' : uid,
+                   'first_name' : first_name,
+                   'last_name' : last_name
+                  },
+                   success : function(data){
+                       alert("Success");
+                   },
+                   error: function(){
+                       alert("Error");
+                   }
+               });
+        }
 </script>
 <fb:login-button data-scope="email" show-faces="true" width="200" max-rows="1"></fb:login-button>
+<div id="signin-button" class="show">
+    <div class="g-signin"
+         data-callback="loginFinishedCallback"
+         data-approvalprompt="force"
+         data-clientid="597105662434-t01ptfe7g1cmktc8bsah0ujhjqrnt0ih.apps.googleusercontent.com"
+         data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read"
+         data-height="standard"
+         data-cookiepolicy="single_host_origin"
+            >
+    </div>
+    <!-- In most cases, you don't want to use approvalprompt=force. Specified
+    here to facilitate the demo.-->
+</div>
 
 </body>
 </html>
