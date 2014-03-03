@@ -8,11 +8,11 @@ class CustomBackend(object):
     1. authenticate : which overrides the current authenticate method in the django backend
     2. get_user : This method defines the access to the user model
     """
-    def authenticate(self,uid=None,password=None):
+    def authenticate(self,email,password=None):
         mymodel = get_user_model()
 
         try:
-            user = mymodel.objects.get(uid=uid)
+            user = mymodel.objects.get(email=email)
             return user
         except mymodel.DoesNotExist:
             return None

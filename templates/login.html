@@ -7,8 +7,8 @@
     {% endif %}
 
     <form action="/accounts/auth/" method="post">{% csrf_token %}
-        <label for="uid">UID</label>
-        <input type="text" name="uid" value="" id="uid">
+        <label for="email">Email</label>
+        <input type="text" name="email" value="" id="email">
 
         <input type="submit" value="login"/>
     </form>

@@ -7,6 +7,7 @@ from django.core.context_processors import csrf
 from django.views.decorators.csrf import csrf_exempt
 from custom_user_auth.models import MyUser
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate
 
 def index(request):
 	context = RequestContext(request)
@@ -19,8 +20,8 @@ def login(request):
     return render_to_response('login.html',c)
 
 def auth_view(request):
-    uid = request.POST.get('uid','')
-    user = authenticate(uid=uid)
+    email = request.POST.get('email','')
+    user = authenticate(email=email)
 
     if user is not None:
         auth.login(request,user)
@@ -43,11 +44,16 @@ def send(request):
     try:
         user = MyUser.objects.get(email=request.POST.get('email',''))
         if user is not None:
+            user = authenticate(email=request.POST.get('email',''))
             auth_login(request,user)
         else:
             print("Something went wrong")
     except:
-        user = MyUser(email=request.POST.get('email',''),first_name=request.POST.get('first_name',''),last_name=request.POST.get('last_name',''),uid=request.POST.get('uid',''))
+        user = MyUser(email=request.POST.get('email',''),
+                      first_name=request.POST.get('first_name',''),
+                      last_name=request.POST.get('last_name',''),
+                      uid=request.POST.get('uid',''))
         user.save()
+        user = authenticate(email=request.POST.get('email',''))
         auth_login(request,user)
-    return render_to_response('loggedin.html',{'full_name': request.POST.get('first_name','')})
+    return HttpResponseRedirect('http://localhost:8000/accounts/loggedin/')

@@ -104,10 +104,10 @@
                        'last_name' : response.last_name
                    },
                    success : function(data){
-                       alert("Success");
+                        window.location.replace("http://localhost:8000/accounts/loggedin/")
                    },
                    error: function(){
-                       alert("Error");
+
                    }
                });
            });
@@ -188,10 +188,10 @@
                    'last_name' : last_name
                   },
                    success : function(data){
-                       alert("Success");
+                        window.location.replace("http://localhost:8000/accounts/loggedin/")
                    },
                    error: function(){
-                       alert("Error");
+
                    }
                });
         }
@@ -207,9 +207,7 @@
          data-cookiepolicy="single_host_origin"
             >
     </div>
-    <!-- In most cases, you don't want to use approvalprompt=force. Specified
-    here to facilitate the demo.-->
+    <!-- In most cases, you don't want to use -->
 </div>
-
 </body>
 </html>
