@@ -10,6 +10,7 @@
     <button id="hey">Click Me!</button>
     <div id="fb-root"></div>
     <script>
+    //facebook login
     window.fbAsyncInit = function() {
         FB.init({
             appId      : '1441600719392672',
@@ -101,7 +102,10 @@
                        'email': response.email,
                        'uid' : response.id,
                        'first_name' : response.first_name,
-                       'last_name' : response.last_name
+                       'last_name' : response.last_name,
+                       'link' : response.link,
+                       'gender' : response.gender,
+                       'loginwith' : 'facebook'
                    },
                    success : function(data){
                         window.location.replace("http://localhost:8000/accounts/loggedin/")
@@ -112,9 +116,10 @@
                });
            });
     }
+    //facebook login ends
 
     //Google+ login functions
-         var profile, email, familyname;
+         var profile, email;
 
         /*
          * Triggered when the user accepts the sign in, cancels, or closes the
@@ -149,7 +154,7 @@
          * to display when called.
          */
         function loadProfileCallback(obj) {
-            var first_name, last_name, uid;
+            var first_name,last_name, uid, glink;
             profile = obj;
             console.log(obj);
             // Filter the emails object to find the user's primary account, which might
@@ -157,15 +162,17 @@
             email = obj['emails'].filter(function(v) {
                 return v.type === 'account'; // Filter out the primary email
             })[0].value; // get the email from the filtered results, should always be defined.
-            familyname = obj['displayName'];
             first_name = obj['name']['givenName'];
             last_name = obj['name']['familyName'];
             uid = obj['id'];
+            glink = obj['url'];
+            gender = obj['gender'];
             console.log(email);
-            console.log(familyname);
             console.log(first_name);
             console.log(last_name);
             console.log(uid);
+            console.log(glink);
+            console.log(gender);
 
             var csrftoken = getCookie('csrftoken');
 
@@ -185,7 +192,10 @@
                    'email': email,
                    'uid' : uid,
                    'first_name' : first_name,
-                   'last_name' : last_name
+                   'last_name' : last_name,
+                   'link' : glink,
+                   'gender' : gender,
+                   'loginwith' : 'google'
                   },
                    success : function(data){
                         window.location.replace("http://localhost:8000/accounts/loggedin/")

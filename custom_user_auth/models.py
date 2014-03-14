@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
 
 
 class MyUserManager(BaseUserManager):
-    def create_user(self, email, uid, first_name, last_name, password=None, profile_pic_url='', facebook_link='', google_link=''):
+    def create_user(self, email, uid, first_name, last_name, password=None, profile_pic_url='', facebook_link='', google_link='',loginwith='',gender=''):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -23,6 +23,8 @@ class MyUserManager(BaseUserManager):
             profile_pic_url = profile_pic_url,
             facebook_link = facebook_link,
             google_link = google_link,
+            loginwith = loginwith,
+            gender = gender,
         )
 
         user.set_password(password)
@@ -54,6 +56,7 @@ class MyUser(AbstractBaseUser):
     first_name = models.TextField(max_length=15,verbose_name='first name')
     last_name = models.TextField(max_length=15,verbose_name='last name')
     uid = models.TextField(max_length=15,verbose_name='oauth key')
+    gender = models.CharField(max_length=10,blank=True,verbose_name='gender of user')
     profile_pic_url = models.CharField(blank=True,max_length=100,verbose_name='profile pic')
     short_desc = models.CharField(blank=True,max_length=140,verbose_name='short description')
     twitter_link = models.CharField(blank=True,max_length=140,verbose_name='twitter connect')
@@ -61,6 +64,7 @@ class MyUser(AbstractBaseUser):
     google_link = models.CharField(blank=True,max_length=140,verbose_name='google connect')
     cover_photo = models.CharField(blank=True,max_length=200,verbose_name='cover photo')
     country = models.CharField(blank=True,max_length=50,verbose_name='country')
+    loginwith = models.CharField(blank=True,max_length=20,verbose_name='network used for login')
     is_deleted = models.BooleanField(default=False,verbose_name='account status')
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
@@ -80,6 +84,10 @@ class MyUser(AbstractBaseUser):
 
     def __str__(self):              # __unicode__ on Python 2
         return self.email
+
+    #returns the social network used for login
+    def get_social_network(self):
+        return self.loginwith
 
     def has_perm(self, perm, obj=None):
         "Does the user have a specific permission?"
@@ -111,7 +119,7 @@ class Article(models.Model):
     last_updated = models.DateTimeField(auto_now=True, verbose_name='article update date')
     time_to_read = models.IntegerField(verbose_name="time to read")
     total_views = models.IntegerField(verbose_name="total views")
-    article_category = models.ForeignKey(Category)
+    article_category = models.ForeignKey(Category,verbose_name='Category of article')
     is_deleted = models.BooleanField(default=False,verbose_name='article status')
 
 class Bookmark(models.Model):

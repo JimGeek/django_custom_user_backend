@@ -2,7 +2,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
-from custom_user_auth.models import MyUser
+from custom_user_auth.models import MyUser,Article,Category
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 
@@ -65,7 +65,7 @@ class MyUserAdmin(UserAdmin):
     list_filter = ('is_admin',)
     fieldsets = (
         ('Credential', {'fields': ('email', 'password')}),
-        ('Personal info', {'fields': ('uid','first_name','last_name','profile_pic_url','short_desc','twitter_link','facebook_link','google_link','cover_photo','country',)}),
+        ('Personal info', {'fields': ('uid','first_name','last_name','profile_pic_url','short_desc','twitter_link','facebook_link','google_link','cover_photo','country','loginwith','gender')}),
         ('Permissions', {'fields': ('is_admin','is_deleted',)}),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
@@ -80,8 +80,25 @@ class MyUserAdmin(UserAdmin):
     ordering = ('email',)
     filter_horizontal = ()
 
+class ArticleAdd(forms.ModelForm):
+    article_content = forms.CharField(label='Article content',widget=forms.TextInput)
+    article_date = forms.DateTimeField(label='Article Date',widget=forms.SplitDateTimeField)
+    total_view = forms.IntegerField(label='Total Views')
+
+     class Meta:
+        model = Article
+        fields = ('article_user_id','article_content','article_date','time_to_read','total_views','article_category')
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        article = super(ArticleAdd, self).save()
+        return article
+
+
 # Now register the new UserAdmin...
 admin.site.register(MyUser, MyUserAdmin)
+admin.site.register(Article)
+admin.site.register(Category)
 # ... and, since we're not using Django's built-in permissions,
 # unregister the Group model from admin.
 admin.site.unregister(Group)
